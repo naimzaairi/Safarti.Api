@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JX3gKB+w1pp4hWOP5XzIQRdyr+Xn/AYC3JobODrA6IgsvQWzdJF5Zx3IIdJasdYlHwYDn4pqZLxsBuGrQ0IP0Q==",
+  "dgSpecHash": "aXlZ04lkbaE6btOdHQygzgB6jDqGdCY0DXKOZ5sTZH2rWM+YnuuIY7iHAmQgoZWCdvhuFXp3x8Ub9NEAgEDV8A==",
   "success": true,
-  "projectFilePath": "/Users/naimzaairi/Documents/ionic_projects/Safarti.Api/Safarti.Api/Safarti.Api.csproj",
+  "projectFilePath": "/Users/naimzaairi/Documents/Code/Safarti.Api/Safarti.Api/Safarti.Api.csproj",
   "expectedPackageFiles": [
     "/Users/naimzaairi/.nuget/packages/bouncycastle.cryptography/2.2.1/bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "/Users/naimzaairi/.nuget/packages/google.protobuf/3.25.1/google.protobuf.3.25.1.nupkg.sha512",

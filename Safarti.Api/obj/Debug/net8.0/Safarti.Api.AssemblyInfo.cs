@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Safarti.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f16f8c35779397dce28341aaa53cbed4e25c451")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+210a7b1c1677c09c71ae2d19d151c3f17f693a5a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Safarti.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Safarti.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

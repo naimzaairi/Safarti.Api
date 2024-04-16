@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Safarti.Api.Configurations;
+using Safarti.Api.Data;
+using Safarti.Api.Models;
 using Safarti.Api.Models.DTOs;
 
 namespace Safarti.Api.Controllers;
@@ -19,12 +21,14 @@ public class AuthController : ControllerBase
     private readonly ILogger<AuthController> logger;
     private readonly UserManager<IdentityUser> userManager;
     private readonly JwtConfig jwtConfig;
+    private readonly SafartiDbContext dataContext;
 
     public AuthController(ILogger<AuthController> logger, UserManager<IdentityUser> userManager, 
-        IOptionsMonitor<JwtConfig> optionsMonitor){
+        IOptionsMonitor<JwtConfig> optionsMonitor, SafartiDbContext dataContext){
         this.logger = logger;
         this.userManager = userManager;
         this.jwtConfig = optionsMonitor.CurrentValue;
+        this.dataContext = dataContext;
     }
 
     [HttpPost]
@@ -32,6 +36,13 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Register ([FromBody] UserRegisterDTO userRegisterDto)
     {
         if(ModelState.IsValid){
+            Profile profile = new Profile();
+            profile.Label = "NAIIIM";
+
+            await this.dataContext.Profiles.AddAsync(profile);
+
+            this.dataContext.SaveChanges();
+
             var emailExist = await this.userManager.FindByEmailAsync(userRegisterDto.Email);
 
             if(emailExist != null){
@@ -48,6 +59,7 @@ public class AuthController : ControllerBase
             var token = this.GenerateJwtToken(newUser);
 
             if(isCreated.Succeeded){
+
                 return Ok(new RegisterResponseDTO()
                 {
                     Result = true,

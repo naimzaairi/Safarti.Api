@@ -4997,11 +4997,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/naimzaairi/Documents/ionic_projects/Safarti.Api/Safarti.Api/Safarti.Api.csproj",
+      "projectUniqueName": "/Users/naimzaairi/Documents/Code/Safarti.Api/Safarti.Api/Safarti.Api.csproj",
       "projectName": "Safarti.Api",
-      "projectPath": "/Users/naimzaairi/Documents/ionic_projects/Safarti.Api/Safarti.Api/Safarti.Api.csproj",
+      "projectPath": "/Users/naimzaairi/Documents/Code/Safarti.Api/Safarti.Api/Safarti.Api.csproj",
       "packagesPath": "/Users/naimzaairi/.nuget/packages/",
-      "outputPath": "/Users/naimzaairi/Documents/ionic_projects/Safarti.Api/Safarti.Api/obj/",
+      "outputPath": "/Users/naimzaairi/Documents/Code/Safarti.Api/Safarti.Api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/naimzaairi/.nuget/NuGet/NuGet.Config"
