@@ -11,5 +11,10 @@ public class SafartiDbContext : IdentityDbContext
     }
 
     public DbSet<Profile> Profiles { get; set; }
+    public DbSet<Travel> Travels { get; set; }
+    public DbSet<City> Cities { get; set; }
+    public DbSet<Car> Cars { get; set; }
+    public DbSet<ProfileRanking> ProfileRankings { get; set; }
+    //public DbSet<ProfileTravel> ProfileTravels { get; set; }
 
 }
