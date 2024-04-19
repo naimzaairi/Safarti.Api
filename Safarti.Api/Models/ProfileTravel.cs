@@ -15,9 +15,9 @@ public class ProfileTravel{
     public int ProfileId { get; set; }
 
     [ForeignKey(nameof(TravelId))]
-    public virtual IEnumerable<Travel> Travels { get; set; } 
+    public virtual Travel Travel { get; set; } 
 
     [ForeignKey(nameof(ProfileId))]
-    public virtual IEnumerable<Profile> Profiles { get; set; } 
+    public virtual Profile Profile { get; set; } 
 
 }

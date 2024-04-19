@@ -42,6 +42,5 @@ public class Travel{
     [ForeignKey(nameof(ToCityId))]
     public virtual City ToCity { get; set; } 
 
-    //[InverseProperty(nameof(ProfileTravel.Travels))]
-    //public virtual IEnumerable<ProfileTravel> ProfileTravels { get; set; }
+    public virtual IEnumerable<ProfileTravel> ProfileTravels { get; set; }
 }

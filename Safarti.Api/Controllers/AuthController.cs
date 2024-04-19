@@ -19,11 +19,11 @@ namespace Safarti.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly ILogger<AuthController> logger;
-    private readonly UserManager<User> userManager;
+    private readonly UserManager<IdentityUser> userManager;
     private readonly JwtConfig jwtConfig;
     private readonly SafartiDbContext dataContext;
 
-    public AuthController(ILogger<AuthController> logger, UserManager<User> userManager, 
+    public AuthController(ILogger<AuthController> logger, UserManager<IdentityUser> userManager, 
         IOptionsMonitor<JwtConfig> optionsMonitor, SafartiDbContext dataContext){
         this.logger = logger;
         this.userManager = userManager;
@@ -49,7 +49,7 @@ public class AuthController : ControllerBase
                 return BadRequest("Email already exists");
             }
 
-            var newUser = new User(){
+            var newUser = new IdentityUser(){
                 Email = userRegisterDto.Email,
                 UserName = userRegisterDto.Email
             };
@@ -104,7 +104,7 @@ public class AuthController : ControllerBase
         return BadRequest();
     }
 
-    private string GenerateJwtToken(User user){
+    private string GenerateJwtToken(IdentityUser user){
 
         var jwtTokenHandler = new JwtSecurityTokenHandler();
 

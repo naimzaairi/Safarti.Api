@@ -66,7 +66,7 @@ public class Profile{
     public int CarId { get; set; }
 
     [ForeignKey(nameof(UserId))]
-    public virtual User User { get; set; } 
+    public virtual IdentityUser User { get; set; } 
 
     [ForeignKey(nameof(CarId))]
     public virtual Car Car { get; set; } 
@@ -76,6 +76,9 @@ public class Profile{
 
     [InverseProperty(nameof(ProfileRanking.Profile))]
     public virtual IEnumerable<ProfileRanking> ProfileRankings { get; set; }
+
+    public virtual IEnumerable<ProfileTravel> ProfileTravels { get; set; }
+
 
     // [InverseProperty(nameof(ProfileTravel.Profiles))]
     // public virtual IEnumerable<ProfileTravel> ProfileTravels { get; set; }

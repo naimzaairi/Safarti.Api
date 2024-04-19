@@ -35,7 +35,6 @@ namespace Safarti.Api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Discriminator = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
@@ -231,8 +230,7 @@ namespace Safarti.Api.Migrations
                     Certified = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Verified = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CarIdentication = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false),
-                    CarId = table.Column<int>(type: "int", nullable: false),
-                    Label = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
+                    CarId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -318,6 +316,33 @@ namespace Safarti.Api.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "ProfileTravels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    TravelId = table.Column<int>(type: "int", nullable: false),
+                    ProfileId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProfileTravels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProfileTravels_Profiles_ProfileId",
+                        column: x => x.ProfileId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProfileTravels_Travels_TravelId",
+                        column: x => x.TravelId,
+                        principalTable: "Travels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -361,6 +386,16 @@ namespace Safarti.Api.Migrations
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProfileTravels_ProfileId",
+                table: "ProfileTravels",
+                column: "ProfileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProfileTravels_TravelId",
+                table: "ProfileTravels",
+                column: "TravelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Profiles_CarId",
                 table: "Profiles",
                 column: "CarId");
@@ -373,8 +408,7 @@ namespace Safarti.Api.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Profiles_UserId",
                 table: "Profiles",
-                column: "UserId",
-                unique: true);
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Travels_FromCityId",
@@ -414,10 +448,13 @@ namespace Safarti.Api.Migrations
                 name: "ProfileRankings");
 
             migrationBuilder.DropTable(
-                name: "Travels");
+                name: "ProfileTravels");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Travels");
 
             migrationBuilder.DropTable(
                 name: "Cities");

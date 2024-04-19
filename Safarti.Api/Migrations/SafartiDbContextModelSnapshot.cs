@@ -80,11 +80,6 @@ namespace Safarti.Api.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("varchar(13)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -135,10 +130,6 @@ namespace Safarti.Api.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -348,8 +339,7 @@ namespace Safarti.Api.Migrations
 
                     b.HasIndex("GenderId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Profiles");
                 });
@@ -376,6 +366,27 @@ namespace Safarti.Api.Migrations
                     b.HasIndex("ProfileId");
 
                     b.ToTable("ProfileRankings");
+                });
+
+            modelBuilder.Entity("Safarti.Api.Models.ProfileTravel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TravelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
+
+                    b.HasIndex("TravelId");
+
+                    b.ToTable("ProfileTravels");
                 });
 
             modelBuilder.Entity("Safarti.Api.Models.Travel", b =>
@@ -418,13 +429,6 @@ namespace Safarti.Api.Migrations
                     b.HasIndex("ToCityId");
 
                     b.ToTable("Travels");
-                });
-
-            modelBuilder.Entity("Safarti.Api.Models.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -492,9 +496,9 @@ namespace Safarti.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Safarti.Api.Models.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("Safarti.Api.Models.Profile", "UserId")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -514,6 +518,25 @@ namespace Safarti.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("Safarti.Api.Models.ProfileTravel", b =>
+                {
+                    b.HasOne("Safarti.Api.Models.Profile", "Profile")
+                        .WithMany("ProfileTravels")
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Safarti.Api.Models.Travel", "Travel")
+                        .WithMany("ProfileTravels")
+                        .HasForeignKey("TravelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profile");
+
+                    b.Navigation("Travel");
                 });
 
             modelBuilder.Entity("Safarti.Api.Models.Travel", b =>
@@ -564,13 +587,14 @@ namespace Safarti.Api.Migrations
                 {
                     b.Navigation("ProfileRankings");
 
+                    b.Navigation("ProfileTravels");
+
                     b.Navigation("Travels");
                 });
 
-            modelBuilder.Entity("Safarti.Api.Models.User", b =>
+            modelBuilder.Entity("Safarti.Api.Models.Travel", b =>
                 {
-                    b.Navigation("Profile")
-                        .IsRequired();
+                    b.Navigation("ProfileTravels");
                 });
 #pragma warning restore 612, 618
         }
