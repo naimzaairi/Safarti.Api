@@ -5,9 +5,9 @@ namespace Safarti.Api.Models.DTOs;
 public class UserRegisterDTO{
 
     [Required]
-    public string Name { get; set; } = String.Empty;
+    public string Name { get; set; }
     [Required]
-    public string Email { get; set; } = String.Empty;
+    public string Email { get; set; }
     [Required]
-    public string Password { get; set; } = String.Empty;
+    public string Password { get; set; }
 }

@@ -11,7 +11,7 @@ public class Profile{
     public int Id { get; set; }
 
     [Required]
-    public string UserId { get; set; } 
+    public int UserId { get; set; } 
 
     [Required]
     public int GenderId { get; set; }
@@ -66,7 +66,7 @@ public class Profile{
     public int CarId { get; set; }
 
     [ForeignKey(nameof(UserId))]
-    public virtual IdentityUser User { get; set; } 
+    public virtual User User { get; set; } 
 
     [ForeignKey(nameof(CarId))]
     public virtual Car Car { get; set; } 

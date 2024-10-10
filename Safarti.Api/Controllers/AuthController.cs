@@ -20,11 +20,11 @@ namespace Safarti.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly ILogger<AuthController> logger;
-    private readonly UserManager<IdentityUser> userManager;
+    private readonly UserManager<User> userManager;
     private readonly JwtConfig jwtConfig;
     private readonly SafartiDbContext dataContext;
 
-    public AuthController(ILogger<AuthController> logger, UserManager<IdentityUser> userManager, 
+    public AuthController(ILogger<AuthController> logger, UserManager<User> userManager, 
         IOptionsMonitor<JwtConfig> optionsMonitor, SafartiDbContext dataContext){
         this.logger = logger;
         this.userManager = userManager;
@@ -44,7 +44,7 @@ public class AuthController : ControllerBase
                 return BadRequest("Email already exists");
             }
 
-            var newUser = new IdentityUser(){
+            var newUser = new User(){
                 Email = userRegisterDto.Email,
                 UserName = userRegisterDto.Email
             };
@@ -85,10 +85,12 @@ public class AuthController : ControllerBase
             if(isPasswordValid)
             {
                 var token = this.GenerateJwtToken(existingUser);
-                
+
                 return Ok(new LoginResponseDTO(){
                     Token = token,
-                    Result = true
+                    Result = true,
+                    UserDTO = new UserDTO(){
+                    }
                 });
             }
 
@@ -97,7 +99,7 @@ public class AuthController : ControllerBase
         return BadRequest();
     }
 
-    private string GenerateJwtToken(IdentityUser user){
+    private string GenerateJwtToken(User user){
 
         var jwtTokenHandler = new JwtSecurityTokenHandler();
 
@@ -106,7 +108,7 @@ public class AuthController : ControllerBase
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity(new []{
-                new Claim("Id", user.Id),
+                new Claim("Id", user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

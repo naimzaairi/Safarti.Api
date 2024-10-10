@@ -3,5 +3,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Safarti.Api.Models;
 
-public class User : IdentityUser<int> {
+public class Role : IdentityRole<int> {
+
 }

@@ -4,5 +4,5 @@ namespace Safarti.Api.Models.DTOs;
 
 public class LoginResponseDTO : AuthResult
 {
-
+    public UserDTO UserDTO { get; set; }
 }
