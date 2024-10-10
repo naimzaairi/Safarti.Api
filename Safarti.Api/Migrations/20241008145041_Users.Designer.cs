@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Safarti.Api.Data;
 
@@ -10,9 +11,11 @@ using Safarti.Api.Data;
 namespace Safarti.Api.Migrations
 {
     [DbContext(typeof(SafartiDbContext))]
-    partial class SafartiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241008145041_Users")]
+    partial class Users
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Mysqlx;
 using Safarti.Api.Configurations;
 using Safarti.Api.Data;
 using Safarti.Api.Models;
@@ -36,12 +37,6 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Register ([FromBody] UserRegisterDTO userRegisterDto)
     {
         if(ModelState.IsValid){
-            // Profile profile = new Profile();
-            // profile.Label = "NAIIIM";
-
-            // await this.dataContext.Profiles.AddAsync(profile);
-
-            // this.dataContext.SaveChanges();
 
             var emailExist = await this.userManager.FindByEmailAsync(userRegisterDto.Email);
 
@@ -67,12 +62,12 @@ public class AuthController : ControllerBase
                 });
             }
 
-            return BadRequest(isCreated.Errors.Select(c => c.Description.ToList()));
+            return BadRequest(isCreated.Errors.Select(c => c.Description));
         }
         return BadRequest();
     }
 
-        [HttpPost]
+    [HttpPost]
     [Route("login")]
     public async Task<IActionResult> Login ([FromBody] UserLoginDTO userLoginDto)
     {
@@ -84,7 +79,6 @@ public class AuthController : ControllerBase
             {
                 return BadRequest("Invalid authentication");
             }
-
 
             var isPasswordValid = await this.userManager.CheckPasswordAsync(existingUser, userLoginDto.Password);
 
@@ -99,7 +93,6 @@ public class AuthController : ControllerBase
             }
 
             return BadRequest("Invalid authentication");
-
         }
         return BadRequest();
     }

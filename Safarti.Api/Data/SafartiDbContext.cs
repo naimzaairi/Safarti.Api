@@ -10,6 +10,7 @@ public class SafartiDbContext : IdentityDbContext
     public SafartiDbContext(DbContextOptions<SafartiDbContext> options) : base(options){  
     }
 
+    public DbSet<User> Users { get; set; }
     public DbSet<Profile> Profiles { get; set; }
     public DbSet<Travel> Travels { get; set; }
     public DbSet<City> Cities { get; set; }
