@@ -58,7 +58,7 @@ public class AuthController : ControllerBase
                 return Ok(new RegisterResponseDTO()
                 {
                     Result = true,
-                    Token = token
+                    Token = token,
                 });
             }
 
@@ -90,6 +90,7 @@ public class AuthController : ControllerBase
                     Token = token,
                     Result = true,
                     UserDTO = new UserDTO(){
+                        UserId = existingUser.Id,
                     }
                 });
             }

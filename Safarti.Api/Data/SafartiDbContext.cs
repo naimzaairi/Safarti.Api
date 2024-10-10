@@ -19,4 +19,24 @@ public class SafartiDbContext : IdentityDbContext<User, Role, int>
     public DbSet<ProfileRanking> ProfileRankings { get; set; }
     public DbSet<ProfileTravel> ProfileTravels { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        ConfigureSafartiContext(modelBuilder);
+    }
+
+    public static void ConfigureSafartiContext(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>().ToTable("Users");
+        modelBuilder.Entity<Role>().ToTable("Roles");
+
+        modelBuilder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");
+        modelBuilder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims");
+        modelBuilder.Entity<IdentityUserToken<int>>().ToTable("UserTokens");
+        modelBuilder.Entity<IdentityUserRole<int>>().ToTable("UserRoles");
+        modelBuilder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");
+
+    }
+
 }
